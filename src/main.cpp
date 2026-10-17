@@ -1,24 +1,33 @@
+
 #include <Arduino.h>
 
 const int LED_PIN = 2;
 
 void setup()
 {
-  pinMode(LED_PIN, OUTPUT);
-  Serial.begin(115200);
-  Serial.println("Deauth Dectector initialized");
+    pinMode(LED_PIN, OUTPUT);
+    digitalWrite(LED_PIN, LOW);
+
+    Serial.begin(115200);
+    Serial.println("Enter 1 for ON, 0 for OFF");
 }
+
 
 void loop()
 {
-  // TODO 2: Turn the LED ON
-  digitalWrite(LED_PIN, HIGH);
+    if (Serial.available() > 0)
+    {
+        char current = Serial.read();
 
-    // TODO 3: Wait for 1000 milliseconds
-  delay(1000);
-    // TODO 4: Turn the LED OFF
-  digitalWrite(LED_PIN, LOW);
-    // TODO 5: Wait for another 1000 milliseconds
-  delay(1000);
-  Serial.println("heleloooooo");
+        if (current == '1')
+        {
+            digitalWrite(LED_PIN, HIGH);
+            Serial.println("LED ON");
+        }
+        else if (current == '0')
+        {
+            digitalWrite(LED_PIN, LOW);
+            Serial.println("LED OFF");
+        }
+    }
 }
